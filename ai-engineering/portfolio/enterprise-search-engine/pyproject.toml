@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "enterprise-search-engine"
+version = "0.1.0"
+description = "The Enterprise Search Engine: multi-tenant hybrid search API with metadata filtering and citation tracking"
+requires-python = ">=3.10"
+dependencies = ["fastapi", "uvicorn", "pydantic", "rank-bm25"]
+
+[tool.setuptools]
+packages = ["enterprise_search"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

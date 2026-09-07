@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "regression-gate"
+version = "0.1.0"
+description = "The Regression Gate: CI/CD eval harness that scores a golden dataset and blocks merges on metric regression"
+requires-python = ">=3.10"
+dependencies = ["fastapi", "uvicorn", "pydantic"]
+
+[tool.setuptools]
+packages = ["regression_gate"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "specialist-model"
+version = "0.1.0"
+description = "The Specialist Model: LoRA/QLoRA fine-tuning control plane - dataset engineering, config validation, and a base-vs-tuned benchmark harness"
+requires-python = ">=3.10"
+dependencies = ["fastapi", "uvicorn", "pydantic"]
+
+[tool.setuptools]
+packages = ["specialist_model"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

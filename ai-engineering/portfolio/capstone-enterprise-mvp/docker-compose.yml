@@ -1,0 +1,19 @@
+services:
+  capstone:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - LLM_API_KEY=${LLM_API_KEY}
+      - LANGSMITH_API_KEY=${LANGSMITH_API_KEY}
+      - LANGSMITH_TRACING=${LANGSMITH_TRACING:-true}
+      - EMBEDDING_MODEL=${EMBEDDING_MODEL:-all-MiniLM-L6-v2}
+      - VECTOR_DB=${VECTOR_DB:-chroma}
+      - PLANNER_MODEL=${PLANNER_MODEL:-gpt-4o}
+      - WRITER_MODEL=${WRITER_MODEL:-gpt-4o-mini}
+      - CRITIC_MODEL=${CRITIC_MODEL:-claude-3-haiku}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request;urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3

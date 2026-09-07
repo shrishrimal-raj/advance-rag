@@ -1,0 +1,16 @@
+services:
+  bridge:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - LLM_API_KEY=${LLM_API_KEY}
+      - BRIDGE_API_KEYS=${BRIDGE_API_KEYS:-demo-key=demo-client}
+      - RATE_CAPACITY=${RATE_CAPACITY:-10}
+      - RATE_REFILL_PER_SEC=${RATE_REFILL_PER_SEC:-2.0}
+      - AUDIT_SINK=${AUDIT_SINK:-stdout}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request;urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3

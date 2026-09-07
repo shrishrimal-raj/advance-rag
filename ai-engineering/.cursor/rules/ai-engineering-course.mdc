@@ -1,0 +1,49 @@
+---
+description: Conventions for building code in the SDE->AI Engineer course (ai-engineering/)
+globs:
+alwaysApply: true
+---
+
+# AI Engineering Course - Agent Rules
+
+You are working inside the `ai-engineering/` 10-week SDE -> AI Engineer course. Follow these rules for every code change.
+
+## Hard constraints
+- NEVER run or pull Ollama locally (8 GB low-power laptop). LLM path = Yolo-Auto cloud via root `.env` (`LLM_API_KEY`, `LLM_BASE_URL`). Local MiniLM embeddings OK.
+- Keep full-pipeline LLM runs minimal (1-2 per module). Heavy workloads (fine-tune/vision/voice) = code + docs, NOT local runs.
+- Never download models >100 MB.
+
+## Every runnable script
+1. Windows UTF-8 guard at top:
+   ```python
+   import sys
+   if sys.platform == "win32":
+       sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+       sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+   ```
+2. Import shared config by path:
+   ```python
+   import pathlib, sys
+   sys.path.append(str(pathlib.Path(__file__).resolve().parents[1]))  # parents[2] from code/<subdir>/
+   from shared.config import get_llm, get_embeddings
+   ```
+3. Graceful degradation: if no LLM/key -> print a clear hint and `sys.exit(0)`. Never crash.
+
+## Known API pitfalls (do not re-learn)
+- `rank_bm25.BM25Okapi` (not BM25).
+- LangChain: try `langchain_classic` import fallback.
+- `LLMChainExtractor.from_llm(llm)` for keyphrase extraction.
+- ParentDocument retriever needs a byte_store check.
+- SelfQuery: neutralize literal `{}` in queries.
+- `InMemoryStore` from `langchain_core.stores`.
+- `JSONLoader(file_path=..., jq_schema='.', text_content=False)`.
+
+## Verification (before done)
+- `python -m py_compile` every new file.
+- Fully run all no-LLM / no-big-download scripts.
+- <=1-2 LLM smoke tests per module max.
+
+## Structure
+- Each week: `NN-slug/{01-plan.md, 02-learning.md, 03-implementation.md, code/{main.py, approach_2_*.py, approach_3_*.py, benchmark_*.py}}`.
+- `02-learning.md` must contain >=5 mermaid diagrams (noob -> expert).
+- Portfolio projects live in `portfolio/` with README, docs/, tests/, Dockerfile, compose, CI.
