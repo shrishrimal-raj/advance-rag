@@ -3,7 +3,7 @@
 > **Live tracker.** Single source of truth for what is DONE vs LEFT. Supersedes MASTER_PLAN §7.
 > Update after every batch/wave. Legend: ✅ done+verified by main · 🔄 in-progress/file exists, unverified · ⏳ pending · ❌ failed/blocked
 >
-> **Last updated:** 2026-09-07 13:55 by main agent — **Modules 01–11 fully verified ✅ · Portfolio code built, docs/CI gap-fill in progress (batch C2)**
+> **Last updated:** 2026-09-07 14:40 by main agent — **ALL DELIVERABLES COMPLETE + VERIFIED** (modules 31/31 compile, diagrams 11/11, portfolio pytest 5/5+7/7+9/9, docs/CI/compose present)
 
 > ⚠️ **HARD CONSTRAINT (user):** 8GB low-power laptop — NEVER run/pull Ollama locally. LLM path = Yolo-Auto cloud (key live in .env, verified). Local MiniLM embeddings OK. Minimize full-pipeline LLM runs.
 
@@ -19,10 +19,10 @@
 | D4b | Goose skill `.agents/skills/advance-rag/SKILL.md` | ✅ | main | Exists |
 | D1 | Multi-approach code, modules 01–11 | ✅ | main | **Re-verified 2026-09-07: 31/31 v2 scripts `py_compile` OK** |
 | D2 | Noob→Expert mermaid diagrams in every `02-learning.md` | ✅ | main | **Re-verified 2026-09-07: 11/11 modules have noob section + ≥5 mermaid blocks (grep)** |
-| D3a | `portfolio/enterprise-knowledge-assistant/` (P1) | 🔄 | — | App code + tests + Dockerfile exist; MISSING: docs/PLANNING.md, docs/DESIGN.md, docker-compose.yml, .github/workflows/ci.yml, .env.example → batch C2 |
-| D3b | `portfolio/agentic-research-agent/` (P2) | 🔄 | — | App code + tests + Dockerfile exist; MISSING: docs/PLANNING.md, docs/DESIGN.md, docker-compose.yml, .github/workflows/ci.yml → batch C2 |
-| D3c | `portfolio/rag-evaluation-harness/` (P3) | 🔄 | — | App code + tests exist; MISSING: Dockerfile, docs/PLANNING.md, docs/DESIGN.md, docker-compose.yml, .github/workflows/ci.yml → batch C2 |
-| D6 | Root README v2 + final full verification | 🔄 | main | README v2 done (roadmap ✅, portfolio section, provider matrix, skills section); final verification pending after C2 |
+| D3a | `portfolio/enterprise-knowledge-assistant/` (P1) | ✅ | main | **pytest 5/5 green (main-run 09-07)**; PLANNING + DESIGN (6 mermaid) + compose + ci.yml + .env.example all present |
+| D3b | `portfolio/agentic-research-agent/` (P2) | ✅ | main | **pytest 7/7 green (main-run 09-07)**; PLANNING + DESIGN (5 mermaid) + compose + ci.yml present; .env.example extended |
+| D3c | `portfolio/rag-evaluation-harness/` (P3) | ✅ | main | **pytest 9/9 green (main-run 09-07)**; Dockerfile + PLANNING + DESIGN (5 mermaid) + compose + ci.yml present |
+| D6 | Root README v2 + final full verification | ✅ | main | README v2 (roadmap, portfolio section, provider matrix, skills); final sweep 09-07: compile 31/31, diagrams 11/11, portfolio tests 21/21 |
 | D7 | Deps: pytest + streamlit added to pyproject.toml | ✅ | main | Added 2026-09-06 22:31 |
 
 ---
@@ -122,24 +122,21 @@
 
 ---
 
-## 3. Portfolio Projects (D3) — batch C2 IN PROGRESS
+## 3. Portfolio Projects (D3) — COMPLETE ✅ (batch C2 finished, main-verified)
 
 Spec per project: `README.md`, `pyproject.toml`, `docs/PLANNING.md`, `docs/DESIGN.md` (≥5 mermaid), `docs/DEPLOYMENT.md`, `tests/`, `Dockerfile`, `docker-compose.yml`, `.github/workflows/ci.yml`, `.env.example`, working app code.
 
-### P1 — `portfolio/enterprise-knowledge-assistant/` 🔄
-- EXISTS: app/ (FastAPI: cache, config, guardrails, llm, main, retrieval), tests/test_retrieval.py, Dockerfile, docs/DEPLOYMENT.md, README.md, pyproject.toml, uv.lock, .env
-- MISSING (C2): docs/PLANNING.md, docs/DESIGN.md (≥5 mermaid), docker-compose.yml, .github/workflows/ci.yml, .env.example
-- VERIFY (C2): `uv run pytest -v` green
+### P1 — `portfolio/enterprise-knowledge-assistant/` ✅
+- Full spec present: app/ (FastAPI: cache, config, guardrails, llm, main, retrieval), tests/, Dockerfile, docker-compose.yml, .github/workflows/ci.yml, .env.example, docs/{PLANNING,DESIGN,DEPLOYMENT}.md, README.md
+- VERIFY: **pytest 5/5 green** (main-run 2026-09-07, 144s incl. MiniLM load); DESIGN.md = 6 mermaid diagrams
 
-### P2 — `portfolio/agentic-research-agent/` 🔄
-- EXISTS: agent/ (graph, prompts, state, tools), api/routes.py, main.py, tests/test_tools.py, Dockerfile, docs/DEPLOYMENT.md, README.md, pyproject.toml, uv.lock, .env(.example)
-- MISSING (C2): docs/PLANNING.md, docs/DESIGN.md (≥5 mermaid), docker-compose.yml, .github/workflows/ci.yml
-- VERIFY (C2): `uv run pytest -v` green
+### P2 — `portfolio/agentic-research-agent/` ✅
+- Full spec present: agent/ (graph, prompts, state, tools), api/routes.py, main.py, tests/, Dockerfile, docker-compose.yml, .github/workflows/ci.yml, .env(.example), docs/{PLANNING,DESIGN,DEPLOYMENT}.md, README.md
+- VERIFY: **pytest 7/7 green** (main-run 2026-09-07); DESIGN.md = 5 mermaid diagrams
 
-### P3 — `portfolio/rag-evaluation-harness/` 🔄
-- EXISTS: harness/ (config, metrics), cli.py, evals/dataset.jsonl, out/ (report.md, results_A.json), tests/test_metrics.py, docs/DEPLOYMENT.md, README.md, pyproject.toml, uv.lock, .env(.example)
-- MISSING (C2): Dockerfile, docs/PLANNING.md, docs/DESIGN.md (≥5 mermaid), docker-compose.yml, .github/workflows/ci.yml
-- VERIFY (C2): `uv run pytest -v` green
+### P3 — `portfolio/rag-evaluation-harness/` ✅
+- Full spec present: harness/ (config, metrics), cli.py, evals/dataset.jsonl, out/ (report.md, results_A.json), tests/, Dockerfile, docker-compose.yml, .github/workflows/ci.yml, .env(.example), docs/{PLANNING,DESIGN,DEPLOYMENT}.md, README.md
+- VERIFY: **pytest 9/9 green** (main-run 2026-09-07); DESIGN.md = 5 mermaid diagrams
 
 ---
 
@@ -151,8 +148,8 @@ Spec per project: `README.md`, `pyproject.toml`, `docs/PLANNING.md`, `docs/DESIG
 | A | Modules 01–06 (D1+D2) | A1: 01,02,03,04 · A2: 05,06 | ✅ | 2026-09-06 22:40 | 2026-09-06 ~23:45 | 6/6 agents, 0 errors. Main re-verify 09-07: all compile + diagrams present |
 | B | Modules 07–11 (D1+D2) | B1: 07,08,09 · B2: 10,11 | ✅ | 2026-09-06 23:58 | 2026-09-07 ~00:40 | 5/5 agents, 0 errors. Main re-verify 09-07: all compile + diagrams present |
 | C1 | Portfolio P1,P2,P3 app code | 3 agents | ✅ (main re-verify pending) | ~09-07 00:40 | ~09-07 05:10 | App code + tests + Dockerfiles built; docs/CI/compose NOT delivered |
-| C2 | Portfolio gap-fill: PLANNING/DESIGN/compose/ci/.env.example (+P3 Dockerfile) + pytest verify | 3 agents | 🔄 RUNNING | 2026-09-07 13:55 | — | workflow `advance_rag_portfolio_gapfill` |
-| F | Final: compile-all, spot-run, README v2, verify | main only | 🔄 partial | 2026-09-07 13:50 | — | README v2 ✅ (provider matrix + skills); compile sweep 31/31 ✅; final pass after C2 |
+| C2 | Portfolio gap-fill: PLANNING/DESIGN/compose/ci/.env.example (+P3 Dockerfile) + pytest verify | 3 agents + main fallback | ✅ | 2026-09-07 13:55 | 2026-09-07 ~14:35 | run 1: P3 complete, P1/P2 stopped after PLANNING. run 2: P2 complete, P1 stopped again → main wrote P1 files directly. All 3 projects main-verified: pytest 5/5, 7/7, 9/9 |
+| F | Final: compile-all, spot-run, README v2, verify | main only | ✅ | 2026-09-07 13:50 | 2026-09-07 14:40 | README v2 ✅; compile sweep 31/31 ✅; M04 spot-runs exit 0 ✅; portfolio pytest 21/21 ✅; **TASK COMPLETE** |
 
 **Constraints honored:** ≤4 concurrent coding subagents (provider ~128K ctx, 3–4 concurrent cap); self-contained briefs; no commit/push by subagents; main verifies all output.
 

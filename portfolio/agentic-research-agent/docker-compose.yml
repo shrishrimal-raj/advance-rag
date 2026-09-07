@@ -1,0 +1,42 @@
+# Agentic Research Agent — single-service compose file.
+#
+#   docker compose up --build
+#
+# Ports:
+#   8000:8000  FastAPI (GET /health, POST /ask, POST /ask/stream)
+#
+# Env:
+#   All runtime config comes from .env (see .env.example): YOLO_AUTO_API_KEY,
+#   YOLO_AUTO_BASE_URL, YOLO_AUTO_MODEL, optional OPENAI_*, LOCAL_EMBEDDING_MODEL,
+#   CHROMA_PERSIST_DIR, REFLECT_CONFIDENCE_THRESHOLD.
+#
+# Data:
+#   The Chroma persist dir lives on the named volume `chroma_data` so the
+#   ingested corpus survives container rebuilds. Ingest before first serve.
+
+services:
+  agent:
+    build: .
+    image: agentic-research-agent:latest
+    container_name: agentic-research-agent
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - chroma_data:/srv/data/chroma_db
+    restart: unless-stopped
+    healthcheck:
+      # /health returns 200 as long as uvicorn is up (reports llm status in body).
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=5)"
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s  # embedding model load + Chroma open on first boot
+
+volumes:
+  chroma_data:

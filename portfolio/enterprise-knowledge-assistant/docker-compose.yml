@@ -1,0 +1,27 @@
+# Enterprise Knowledge Assistant — compose stack
+# Usage: cp .env.example .env (fill keys) && docker compose up --build
+services:
+  api:
+    build: .
+    image: enterprise-knowledge-assistant:0.1.0
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      # Container paths override host-relative defaults from config.py
+      CHROMA_PERSIST_DIR: /data/chroma_db
+    volumes:
+      # Vector store survives container rebuilds; re-ingest only if lost.
+      - chroma_data:/data/chroma_db
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s   # first boot loads the MiniLM embedding model
+    restart: unless-stopped
+    # ponytail: single replica by design (no multi-tenant auth); scale behind an LB if that changes
+
+volumes:
+  chroma_data:
