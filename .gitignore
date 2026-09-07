@@ -1,0 +1,10 @@
+.venv/
+.env
+__pycache__/
+*.pyc
+data/chroma_db/
+data/cache/
+.ipynb_checkpoints/
+.DS_Store
+*.egg-info/
+.ruff_cache/

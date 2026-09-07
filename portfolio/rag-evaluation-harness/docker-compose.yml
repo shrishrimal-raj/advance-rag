@@ -1,0 +1,29 @@
+# RAG Evaluation & MLOps Harness — batch job (not a long-running service).
+#
+# Usage:
+#   docker compose run --rm harness            # run offline evaluation (pipeline A)
+#   docker compose run --rm harness uv run python cli.py gate --baseline evals/baseline.json
+#
+# Ports: NONE. The harness is a CLI; it writes artifacts to the ./out bind
+# mount and exits. Nothing listens on any port.
+#
+# Secrets: .env is mounted via env_file and is NEVER baked into the image.
+# Everything works without any key (heuristic/offline mode).
+
+services:
+  harness:
+    build: .
+    image: rag-evaluation-harness:0.1.0
+    env_file: .env
+    # Persist reports/results on the host
+    volumes:
+      - ./out:/app/out
+    # One-shot job: verify the expected artifact exists after the run.
+    # (Only meaningful if you override the command to keep the container alive,
+    # e.g. `command: ["sleep", "infinity"]` for interactive debugging.)
+    healthcheck:
+      test: ["CMD-SHELL", "test -s /app/out/results_A.json"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s

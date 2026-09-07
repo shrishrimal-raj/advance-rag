@@ -1,0 +1,27 @@
+{
+  "company": "Acme Robotics",
+  "founded": 2019,
+  "headquarters": "Bengaluru, India",
+  "mission": "Autonomous warehouse logistics",
+  "products": [
+    {
+      "name": "Falcon AMR",
+      "type": "Autonomous Mobile Robot",
+      "payload_kg": 500,
+      "battery_hours": 8,
+      "navigation": "LiDAR + SLAM"
+    },
+    {
+      "name": "Heron Arm X2",
+      "type": "Robotic Arm",
+      "payload_kg": 25,
+      "repetitive_accuracy_mm": 0.05,
+      "navigation": "Fixed base"
+    }
+  ],
+  "support_policy": {
+    "warranty_years": 3,
+    "response_time_hours": 4,
+    "on_site_coverage": ["India", "Singapore", "Dubai"]
+  }
+}

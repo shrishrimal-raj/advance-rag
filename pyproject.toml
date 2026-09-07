@@ -1,0 +1,54 @@
+[project]
+name = "advance-rag-course"
+version = "0.1.0"
+description = "Local Advanced RAG course - end-to-end production-grade RAG with uv"
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    # --- Core orchestration ---
+    "langchain>=0.3",
+    "langchain-core>=0.3",
+    "langchain-community>=0.3,<0.4",
+    "langchain-text-splitters>=0.3",
+    "langchain-openai>=0.2",
+    "langgraph>=0.2",
+    "langchain-ollama>=0.2",
+    # --- Vector stores ---
+    "chromadb>=0.5",
+    "langchain-chroma>=0.2",
+    "langchain-huggingface>=0.1",
+    # --- Embeddings (local default) ---
+    "sentence-transformers>=3.0",
+    # --- Sparse / hybrid search ---
+    "rank-bm25>=0.2",
+    "fastembed>=0.3",
+    # --- Document loaders ---
+    "pypdf>=4.0",
+    "beautifulsoup4>=4.12",
+    "requests>=2.31",
+    "unstructured>=0.16",
+    "markdown>=3.5",
+    # --- Evaluation ---
+    "ragas>=0.2",
+    "datasets>=2.19",
+    # --- Utilities ---
+    "python-dotenv>=1.0",
+    "pydantic>=2.0",
+    "jq>=1.0",
+    "rich>=13.0",
+    "tqdm>=4.66",
+    "langchain-classic>=1.0.8",
+    "matplotlib>=3.8",
+    # --- Testing & UI (v2) ---
+    "pytest>=8.0",
+    "streamlit>=1.36",
+]
+
+[dependency-groups]
+dev = [
+    "jupyter>=1.0",
+    "ipykernel>=6.29",
+]
+
+[tool.uv]
+package = false

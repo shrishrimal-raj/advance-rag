@@ -1,0 +1,20 @@
+[project]
+name = "enterprise-knowledge-assistant"
+version = "0.1.0"
+description = "Production-grade RAG service: FastAPI + hybrid retrieval + rerank + semantic cache + guardrails"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi",
+    "uvicorn[standard]",
+    "chromadb",
+    "rank-bm25",
+    "sentence-transformers",
+    "pydantic",
+    "python-dotenv",
+    "rich",
+    "httpx",
+    "pytest",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

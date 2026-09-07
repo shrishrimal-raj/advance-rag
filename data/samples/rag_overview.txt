@@ -1,0 +1,9 @@
+Retrieval-Augmented Generation (RAG) is a technique that combines information retrieval with large language models. Instead of relying solely on the knowledge baked into a model's weights, RAG grounds the model's answers in an external knowledge base.
+
+How RAG works: when a user asks a question, the system first retrieves the most relevant documents or passages from a vector database using semantic similarity search. These retrieved passages are then injected into the prompt as context, and the LLM generates an answer based on that context rather than pure parametric memory.
+
+RAG solves two major problems of LLMs. First, hallucination: by grounding answers in retrieved evidence, the model is far less likely to fabricate facts. Second, knowledge cutoff: the knowledge base can be updated at any time without retraining the model, so answers reflect the latest information.
+
+Compared to fine-tuning, RAG is cheaper, faster to deploy, and provides citations. Compared to plain prompt engineering, RAG scales to large private corpora that would never fit in a context window. The core data flow is: Knowledge Base -> Retriever -> Generator.
+
+Industry deployments add advanced retrieval (hybrid search, reranking), evaluation (RAGAS metrics like faithfulness and answer relevancy), guardrails, caching, and monitoring to reach production quality.

@@ -1,0 +1,72 @@
+[
+  {
+    "question": "What is the maximum payload capacity of the Falcon AMR?",
+    "ground_truth": "The Falcon AMR has a maximum payload capacity of 500 kg.",
+    "contexts": [
+      "{\n  \"name\": \"Falcon AMR\",\n  \"type\": \"Autonomous Mobile Robot\",\n  \"payload_kg\": 500,\n  \"battery_hours\": 8,\n  \"navigation\": \"LiDAR + SLAM\"\n}"
+    ]
+  },
+  {
+    "question": "How many hours of battery life does the Falcon AMR provide?",
+    "ground_truth": "The Falcon AMR provides 8 hours of battery life.",
+    "contexts": [
+      "{\n  \"name\": \"Falcon AMR\",\n  \"type\": \"Autonomous Mobile Robot\",\n  \"payload_kg\": 500,\n  \"battery_hours\": 8,\n  \"navigation\": \"LiDAR + SLAM\"\n}"
+    ]
+  },
+  {
+    "question": "What warranty period and support response time does Acme Robotics offer?",
+    "ground_truth": "Acme Robotics offers a 3-year warranty with a 4-hour support response time.",
+    "contexts": [
+      "{\n  \"warranty_years\": 3,\n  \"response_time_hours\": 4,\n  \"on_site_coverage\": [\n    \"India\",\n    \"Singapore\",\n    \"Dubai\"\n  ]\n}"
+    ]
+  },
+  {
+    "question": "In which countries does Acme Robotics provide on-site support coverage?",
+    "ground_truth": "Acme Robotics provides on-site support coverage in India, Singapore, and Dubai.",
+    "contexts": [
+      "{\n  \"warranty_years\": 3,\n  \"response_time_hours\": 4,\n  \"on_site_coverage\": [\n    \"India\",\n    \"Singapore\",\n    \"Dubai\"\n  ]\n}"
+    ]
+  },
+  {
+    "question": "What is the repetitive accuracy of the Heron Arm X2 robotic arm?",
+    "ground_truth": "The Heron Arm X2 has a repetitive accuracy of 0.05 mm.",
+    "contexts": [
+      "{\n  \"name\": \"Heron Arm X2\",\n  \"type\": \"Robotic Arm\",\n  \"payload_kg\": 25,\n  \"repetitive_accuracy_mm\": 0.05,\n  \"navigation\": \"Fixed base\"\n}"
+    ]
+  },
+  {
+    "question": "How much does the Quantum Laptop Pro 16 cost?",
+    "ground_truth": "The Quantum Laptop Pro 16 costs $1,899.99.",
+    "contexts": [
+      "product,category,price_usd,stock,region\nQuantum Laptop Pro 16,Electronics,1899.99,42,APAC"
+    ]
+  },
+  {
+    "question": "What is the price and target region of the Atlas Standing Desk?",
+    "ground_truth": "The Atlas Standing Desk is priced at $549.00 and targets the NAMER region.",
+    "contexts": [
+      "product,category,price_usd,stock,region\nAtlas Standing Desk,Furniture,549.00,35,NAMER"
+    ]
+  },
+  {
+    "question": "How many units of the Terra Desk Lamp LED are currently in stock?",
+    "ground_truth": "There are 300 units of the Terra Desk Lamp LED in stock.",
+    "contexts": [
+      "product,category,price_usd,stock,region\nTerra Desk Lamp LED,Furniture,89.95,300,APAC"
+    ]
+  },
+  {
+    "question": "What two major problems of large language models does RAG solve?",
+    "ground_truth": "RAG solves hallucination (by grounding answers in retrieved evidence) and knowledge cutoff (by letting the knowledge base be updated without retraining).",
+    "contexts": [
+      "RAG solves two major problems of LLMs. First, hallucination: by grounding answers in retrieved evidence, the model is far less likely to fabricate facts. Second, knowledge cutoff: the knowledge base can be updated at any time without retraining the model, so answers reflect the latest information."
+    ]
+  },
+  {
+    "question": "What are the three key tunable parameters of the HNSW index and what does each control?",
+    "ground_truth": "HNSW uses M (max edges per node, default 16; higher improves recall but uses more memory), efConstruction (build-time beam width; higher gives better index quality but slower build), and efSearch (query-time beam width; higher improves recall but slows queries).",
+    "contexts": [
+      "### HNSW (Hierarchical Navigable Small World)\nBuilds a multi-layer graph. Upper layers are sparse highways for long jumps; lower layers are dense for fine-grained navigation. Parameters:\n- `M` (max edges per node): default 16, higher = better recall, more memory\n- `efConstruction`: build-time beam width, higher = better index quality, slower build\n- `efSearch`: query-time beam width, higher = better recall, slower queries\n\nHNSW typically achieves >95% recall at sub-millisecond latency and is the default choice in ChromaDB, Qdrant, pgvector, Milvus.\n\n## Distance Metrics\n- **Cosine similarity**: direction only; standard for text embeddings normalized to unit length\n- **L2 (Euclidean)**: magnitude matters; common for image embeddings\n- **Inner product**: equivalent to cosine when vectors are L2-normalized\n\n## Production Considerations\n- Persist indexes to disk; rebuild on embedding model change (vectors are not portable across models!)\n- Shard by tenant/metadata for multi-tenant SaaS\n- Combine with scalar filters (pre-filter vs post-filter trade-off)"
+    ]
+  }
+]

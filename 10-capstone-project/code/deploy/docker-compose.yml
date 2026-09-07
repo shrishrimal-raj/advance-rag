@@ -1,0 +1,39 @@
+# Papeer — capstone RAG assistant (Streamlit UI)
+#
+# Usage (from THIS directory or anywhere — paths are relative to this file):
+#   docker compose up --build
+# Then open http://localhost:8501
+#
+# Notes:
+# - Build context is the repo root (the Dockerfile expects pyproject.toml/uv.lock at top level).
+# - The Chroma vector store persists in the named volume `papeer-chroma` across restarts.
+# - Secrets come from the repo-root .env (never baked into the image).
+
+services:
+  app:
+    build:
+      context: ../../..
+      dockerfile: 10-capstone-project/code/deploy/Dockerfile
+    image: papeer:latest
+    container_name: papeer
+    ports:
+      - "8501:8501"
+    env_file:
+      - ../../../.env
+    volumes:
+      # Persistent vector store + BM25 sidecar survive container recreation.
+      - papeer-chroma:/app/data/chroma_db
+      # Optional: mount your own documents (read-only) for ingestion.
+      # - ../../../data/user_docs:/app/data/user_docs:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 5s
+      start_period: 90s
+      retries: 3
+    # Low-power friendly: cap memory so the embedding models can't OOM the host.
+    mem_limit: 4g
+
+volumes:
+  papeer-chroma:

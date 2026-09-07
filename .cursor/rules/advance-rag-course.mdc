@@ -1,0 +1,59 @@
+---
+description: Always-on guidelines for the Advanced RAG course and portfolio projects (LangChain 1.x, LangGraph, ChromaDB, RAGAS, uv)
+globs: **/*.py,**/*.md,**/*.toml
+alwaysApply: true
+---
+
+# Advanced RAG Course — Project Guidelines
+
+You are working in a locally-runnable **Advanced RAG course** (11 modules) plus production-grade
+**portfolio projects** under `portfolio/`. Follow these rules strictly.
+
+## Stack & Tooling
+- Python managed with **uv**: run everything via `uv run python <script>`. Never use bare `python`.
+- LangChain 1.x era: `langchain-classic>=1.0.8`, `langchain-community>=0.3,<0.4` (pinned — do NOT bump to 0.4+, it breaks `langchain_classic`).
+- Vector store: **ChromaDB** persistent client. Embeddings: local `sentence-transformers/all-MiniLM-L6-v2` by default.
+- LLM selection lives ONLY in `shared/config.py` (`get_llm()`): OpenAI → Yolo-Auto (`https://yolo-auto.com/v1`, `qwen3.8-27b`, env `YOLO_AUTO_API_KEY`) → Ollama local. Never hardcode providers in module code.
+
+## Mandatory Code Conventions
+1. Every runnable script starts with the Windows UTF-8 guard:
+   ```python
+   import sys
+   if sys.platform == "win32":
+       sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+       sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+   ```
+2. Import shared factories via:
+   ```python
+   import sys, pathlib
+   sys.path.append(str(pathlib.Path(__file__).resolve().parents[1]))  # parents[2] inside code/<subdir>/
+   from shared.config import get_llm, get_embeddings
+   ```
+3. Scripts MUST degrade gracefully when Ollama/cloud is unreachable: catch the error, print a clear hint (`ollama serve` / set a key), exit 0. Never crash the learner.
+4. Use `rich` for pretty CLI output. Avoid emoji/unicode that breaks cp1252 consoles (the guard handles it, but prefer ASCII in critical paths).
+
+## Known API Pitfalls (do not reintroduce)
+- `rank_bm25.BM25Okapi` — NOT `RankBM25`.
+- Advanced retrievers (ContextualCompression, ParentDocument, SelfQuery, MultiQuery): `try: from langchain_classic.retrievers import X` / `except ImportError: from langchain.retrievers import X`.
+- `LLMChainExtractor.from_llm(llm)` — not `LLMChainExtractor(llm=...)`.
+- `ParentDocumentRetriever`: pick kwarg via `'byte_store' in ParentDocumentRetriever.model_fields` (newer LC renamed `parent_doc_store` → `byte_store`).
+- `SelfQueryRetriever.from_llm(...)` requires `document_contents=` and `metadata_field_info=`; neutralize literal `{` `}` in sample text (replace with ` [` ` ]`) or FewShotPromptTemplate f-string validation fails.
+- `InMemoryStore` comes from `langchain_core.stores`, not `langchain.storage`.
+- `JSONLoader(file_path=..., jq_schema='.', text_content=False)` — `jq_schema` is required.
+- `MarkdownHeaderTextSplitter.split_documents` does not exist in the new API — use `split_text` (returns Documents) or the custom `md_header_split` helper in module 02.
+- ChromaDB adapters must implement BOTH `__call__` and `embed_query` (newer ChromaDB calls `embed_query` explicitly; handle list input).
+
+## Verification Protocol (after ANY code change)
+1. `uv run python -m py_compile <every changed/new file>`
+2. Fully RUN scripts that need no LLM and no downloads >100MB.
+3. NEVER execute scripts that download large models (CLIP, extra transformers) — compile-check only.
+4. Report exactly what was run and its result.
+
+## Documentation Standards
+- Markdown with **mermaid diagrams**; every concept explained noob → practitioner → expert.
+- Trade-off tables for every design decision (cost/quality/latency).
+- Each module folder keeps: `01-plan.md`, `02-learning.md`, `03-implementation.md`, `code/`, `notes.md`.
+- Portfolio projects (`portfolio/*`) are standalone: own `pyproject.toml`, `tests/`, `Dockerfile`, `docker-compose.yml`, `.github/workflows/ci.yml`, `docs/` (PLANNING, DESIGN, DEPLOYMENT).
+
+## Secrets
+- Never write real API keys into any file. Keys come from `.env` (gitignored). Only `.env.example` is committed, with empty values.

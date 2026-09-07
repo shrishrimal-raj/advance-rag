@@ -1,0 +1,59 @@
+{
+  "pipeline": "A",
+  "n": 8,
+  "averages": {
+    "context_keyword_coverage": 0.5473,
+    "answer_relevancy": 0.5755,
+    "faithfulness_proxy": 0.6616
+  },
+  "results": [
+    {
+      "question": "What is reciprocal rank fusion and why is k=60 common?",
+      "context_keyword_coverage": 0.6667,
+      "answer_relevancy": 0.8083,
+      "faithfulness_proxy": 0.6063
+    },
+    {
+      "question": "How does HNSW achieve fast approximate nearest neighbor search?",
+      "context_keyword_coverage": 0.4286,
+      "answer_relevancy": 0.7602,
+      "faithfulness_proxy": 0.7795
+    },
+    {
+      "question": "Why can chunking strategy change retrieval quality?",
+      "context_keyword_coverage": 0.2,
+      "answer_relevancy": 0.6287,
+      "faithfulness_proxy": 0.6011
+    },
+    {
+      "question": "What is parent-document retrieval?",
+      "context_keyword_coverage": 1.0,
+      "answer_relevancy": 0.5891,
+      "faithfulness_proxy": 0.6764
+    },
+    {
+      "question": "When is hybrid BM25+dense retrieval better than dense alone?",
+      "context_keyword_coverage": 0.3333,
+      "answer_relevancy": 0.3423,
+      "faithfulness_proxy": 0.4903
+    },
+    {
+      "question": "What does faithfulness measure in RAG evaluation?",
+      "context_keyword_coverage": 0.25,
+      "answer_relevancy": 0.5165,
+      "faithfulness_proxy": 0.6427
+    },
+    {
+      "question": "Why cache RAG responses and what is the risk?",
+      "context_keyword_coverage": 0.5,
+      "answer_relevancy": 0.4721,
+      "faithfulness_proxy": 0.6624
+    },
+    {
+      "question": "What is HyDE and when does it help?",
+      "context_keyword_coverage": 1.0,
+      "answer_relevancy": 0.4869,
+      "faithfulness_proxy": 0.834
+    }
+  ]
+}
