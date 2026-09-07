@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dual-agent-supervisor"
+version = "0.1.0"
+description = "The Dual-Agent Supervisor: secure maker-checker multi-agent system with per-agent provider failover that survives live outages"
+requires-python = ">=3.10"
+dependencies = ["fastapi", "uvicorn", "pydantic"]
+
+[tool.setuptools]
+packages = ["dual_agent_supervisor"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

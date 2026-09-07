@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "multimodal-rag-engine"
+version = "0.1.0"
+description = "The Multimodal RAG Engine: routes text/image/audio through modality processors, fuses evidence into a retrieval context, and tracks live dashboard metrics"
+requires-python = ">=3.10"
+dependencies = ["fastapi", "uvicorn", "pydantic"]
+
+[tool.setuptools]
+packages = ["multimodal_rag_engine"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

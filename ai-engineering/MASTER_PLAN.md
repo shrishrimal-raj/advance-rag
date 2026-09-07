@@ -27,7 +27,7 @@ planning → design → development → testing → deployment.
 |----|-------------|-------|
 | D1 | 10 weekly modules, multi-approach code | Each: `01-plan.md`, `02-learning.md`, `03-implementation.md`, `code/` (main + approach_2 + approach_3 + benchmark), `notes.md` |
 | D2 | Noob→Expert diagrams | ≥5 mermaid blocks per `02-learning.md` |
-| D3 | Portfolio projects (`ai-engineering/portfolio/`) | 3 flagship productionized builds (own pyproject/tests/Docker/CI/docs) |
+| D3 | Portfolio projects (`ai-engineering/portfolio/`) | **10 projects** = 1 Capstone + 9 weekly builds per Task.md (each own pyproject/tests/Docker/CI/docs) |
 | D4 | Agent skills | Cursor rule + Goose skill for this course |
 | D5 | Provider integration | Reuse root 3-tier config (OpenAI → Yolo-Auto → Ollama) |
 | D6 | Docs upgrade | Course README roadmap + provider matrix + structure |
@@ -47,12 +47,22 @@ planning → design → development → testing → deployment.
 | 9 | `09-multimodal-ai/` | Multimodal architecture; low-latency multimodal; multimodal RAG; capstone scoping | Vision, Voice AI, Video | **The Multimodal RAG Engine** — vision+voice channels, structured extraction, cost-per-ticket dashboard | main=multimodal RAG (vision+text) · a2=voice channel (Whisper) · a3=structured extraction · ⚠️ heavy models degrade gracefully |
 | 10 | `10-capstone-finale/` | Recap; interview prep; defending design decisions; build capstone E2E; feedback | Interview Prep, Capstone, Evals, Monitoring | **The Finale Deploy** — enterprise-grade MVP w/ agents, evals & observability dashboard | capstone app (integrates prior weeks) · Docker+AWS deploy · observability dashboard · demo-day deck |
 
-### D3 — Portfolio Projects (flagship, productionized)
-| # | Project | Proves | Source week |
-|---|---------|--------|-------------|
-| P1 | `portfolio/ai-gateway-service/` | Production LLM service: FastAPI + streaming + cost tracking + Docker + CI + pytest + monitoring | Wk 1 |
-| P2 | `portfolio/enterprise-search-service/` | Multi-tenant hybrid search API: BM25+dense+rerank, metadata filters, citations, Docker + CI + tests | Wk 3 |
-| P3 | `portfolio/regression-telemetry-gate/` | CI-gated eval harness: golden datasets, RAGAS/heuristic metrics, A/B gates, tracing | Wk 5 |
+### D3 — Portfolio Projects (1 Capstone + 9 weekly builds, per Task.md)
+
+Task.md ships **10 production-grade projects** ("1 Capstone + 9 Projects Built From Scratch"). Each is an industry-standard, portfolio-ready service: own `pyproject.toml`, offline-testable core, FastAPI app, `tests/`, `Dockerfile`, `docker-compose.yml`, `.github/workflows/ci.yml`, `.env.example`, and `docs/{PLANNING,DESIGN(≥5 mermaid),DEPLOYMENT}.md`. Real integrations (pgvector/Redis/Pinecone/CrewAI/Whisper/W&B) are wired as guarded, swappable dependencies; the testable core runs fully offline so CI is green with no secrets or heavy models.
+
+| # | Project (dir) | Task build | Tech stack | Source wk |
+|---|---------------|-----------|-----------|-----------|
+| 1 | `portfolio/capstone-enterprise-mvp/` | Capstone Project | Docker·AWS·Observability | Wk10 |
+| 2 | `portfolio/ai-gateway/` | The AI Gateway | FastAPI·Streaming·Cost Tracking | Wk1 |
+| 3 | `portfolio/knowledge-engine/` | The Knowledge Engine | RAG·pgvector·LangChain | Wk2 |
+| 4 | `portfolio/enterprise-search-engine/` | The Enterprise Search Engine | Hybrid·Multi-Tenant·Pinecone | Wk3 |
+| 5 | `portfolio/persistent-operator/` | The Persistent Operator | LangGraph·Redis·Tool Calling | Wk4 |
+| 6 | `portfolio/regression-gate/` | The Regression Gate | LangSmith·RAGAS·CI/CD | Wk5 |
+| 7 | `portfolio/audited-tool-bridge/` | The Audited Tool Bridge | MCP·CrewAI·Docker | Wk6 |
+| 8 | `portfolio/specialist-model/` | The Specialist Model | LoRA/QLoRA·W&B | Wk7 |
+| 9 | `portfolio/dual-agent-supervisor/` | The Dual-Agent Supervisor | Multi-Agent·Reliability·Failover | Wk8 |
+| 10 | `portfolio/multimodal-rag-engine/` | The Multimodal RAG Engine | Vision·Voice AI·Live Dashboards | Wk9 |
 
 Each includes: `README.md`, `pyproject.toml`, `docs/PLANNING.md`, `docs/DESIGN.md` (≥5 mermaid), `docs/DEPLOYMENT.md`, `tests/`, `Dockerfile`, `docker-compose.yml`, `.github/workflows/ci.yml`, `.env.example`.
 
@@ -79,7 +89,7 @@ Each includes: `README.md`, `pyproject.toml`, `docs/PLANNING.md`, `docs/DESIGN.m
 | A | Weeks 2, 3, 4 (RAG foundations → enterprise RAG → agents) | ≤3 subagents |
 | B | Weeks 5, 6, 7 (evals → MCP/multi-agent → fine-tuning) | ≤3 subagents |
 | C | Weeks 8, 9, 10 (system design → multimodal → capstone) | ≤3 subagents |
-| D | Portfolio P1, P2, P3 | ≤3 subagents |
+| D | Portfolio: all 10 Task.md projects | main (sequential) |
 | Final | Full compile sweep, spot-runs, README final, skills, verify, **push master** | main |
 
 Each batch updates `CHECKPOINT.md`. Main verifies all subagent output before marking ✅.

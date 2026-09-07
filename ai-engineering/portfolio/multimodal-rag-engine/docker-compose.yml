@@ -1,0 +1,17 @@
+services:
+  multimodal:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - LLM_API_KEY=${LLM_API_KEY}
+      - CLIP_MODEL=${CLIP_MODEL:-openai/clip-vit-base-patch32}
+      - WHISPER_MODEL=${WHISPER_MODEL:-tiny}
+      - EMBEDDING_MODEL=${EMBEDDING_MODEL:-all-MiniLM-L6-v2}
+      - VECTOR_DB=${VECTOR_DB:-chroma}
+      - DASHBOARD_REFRESH_MS=${DASHBOARD_REFRESH_MS:-2000}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request;urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3

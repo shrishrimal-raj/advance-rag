@@ -1,0 +1,17 @@
+services:
+  supervisor:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - LLM_API_KEY=${LLM_API_KEY}
+      - MAKER_PRIMARY_MODEL=${MAKER_PRIMARY_MODEL:-gpt-4o}
+      - MAKER_FALLBACK_MODEL=${MAKER_FALLBACK_MODEL:-gpt-4o-mini}
+      - CHECKER_PRIMARY_MODEL=${CHECKER_PRIMARY_MODEL:-claude-3-haiku}
+      - CHECKER_FALLBACK_MODEL=${CHECKER_FALLBACK_MODEL:-gpt-4o-mini}
+      - MAX_RETRIES=${MAX_RETRIES:-3}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request;urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3

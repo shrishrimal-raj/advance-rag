@@ -3,7 +3,7 @@
 > **Live tracker.** Single source of truth for what is DONE vs LEFT. Update after every batch/wave.
 > Legend: ✅ done+verified by main · 🔄 in-progress/file exists, unverified · ⏳ pending · ❌ failed/blocked
 >
-> **Last updated:** 2026-09-07 by main agent — **Batches 0 + A + B + C + D COMPLETE**: infra + **all 10 weeks built & verified** + **all 3 portfolio projects built & tested** (offline pytest suites green). Next: Batch F (agent skills + final verify + push).
+> **Last updated:** 2026-09-07 by main agent — Weeks 1–10 ✅ + agent skills ✅. **Portfolio RE-SCOPED to Task.md's 10 projects** (1 Capstone + 9 weekly builds). **All 10 portfolio projects built & offline-verified ✅.** Pushing to `feat/sde-ai-engineer-course`.
 
 > ⚠️ **HARD CONSTRAINT (user):** 8 GB low-power laptop — NEVER run/pull Ollama locally. LLM path = Yolo-Auto cloud (key live in root `.env`, verified). Local MiniLM embeddings OK. Minimize full-pipeline LLM runs (1–2/module). Heavy workloads (fine-tune/vision/voice) = code + docs, NOT local runs.
 
@@ -21,9 +21,7 @@
 | D5 | `ai-engineering/shared/config.py` + `.env.example` | ✅ | main | 3-tier provider; loads root `.env` (verified key); selftest confirmed |
 | D1 | 10 weekly modules, multi-approach code | ✅ | main | **All 10 weeks built+verified** |
 | D2 | Noob→Expert mermaid diagrams in every `02-learning.md` | ✅ | main | All 10 weeks ✅ (≥5 each) |
-| D3a | `portfolio/ai-gateway-service/` (P1) | ✅ | main | 6/6 offline tests pass; gateway retry/fallback/rate-limit/log verified |
-| D3b | `portfolio/enterprise-search-service/` (P2) | ✅ | main | 6/6 offline tests pass; BM25+dense+RRF+rerank verified |
-| D3c | `portfolio/regression-telemetry-gate/` (P3) | ✅ | main | 6/6 offline tests pass; evals+baseline+regression+telemetry verified |
+| D3 | Portfolio: **10 Task.md projects** (1 Capstone + 9 weekly builds) | ✅ | main | All 10 built + offline-verified; per-project status in §3 |
 | D4 | Agent skills (Cursor + Goose) | ✅ | main | Cursor rule (`.cursor/rules/*.mdc`) + Goose skill (`.goose/skills/*/SKILL.md`) encoding course conventions |
 | D6b | Root-level: create **master** branch + push to origin | ⏳ | main | After Batch 0 minimum |
 
@@ -46,13 +44,24 @@
 
 ---
 
-## 3. Portfolio Projects (D3) — COMPLETE (Batch D)
+## 3. Portfolio Projects (D3) — 10 Task.md builds (IN PROGRESS)
 
-Spec per project: `README.md`, `pyproject.toml`, `docs/PLANNING.md`, `docs/DESIGN.md` (≥5 mermaid), `docs/DEPLOYMENT.md`, `tests/`, `Dockerfile`, `docker-compose.yml`, `.github/workflows/ci.yml`, `.env.example`, working app code. All delivered.
+Task.md ships **1 Capstone + 9 weekly-build projects**. Each = industry-standard service: own `pyproject.toml`, offline-testable core, FastAPI app, `tests/`, `Dockerfile`, `docker-compose.yml`, `.github/workflows/ci.yml`, `.env.example`, `docs/{PLANNING,DESIGN(≥5 mermaid),DEPLOYMENT}.md`. Real integrations (pgvector/Redis/Pinecone/CrewAI/Whisper/W&B) are guarded + swappable; the testable core runs fully offline so CI is green with no secrets/heavy models.
 
-- P1 `portfolio/ai-gateway-service/` — ✅ 6/6 tests; provider routing + retry/fallback + token-bucket rate limit + structured logging; FastAPI `/health` `/ready` `/complete`
-- P2 `portfolio/enterprise-search-service/` — ✅ 6/6 tests; hybrid BM25 + dense cosine + RRF + rerank; FastAPI `/health` `/ready` `/search`
-- P3 `portfolio/regression-telemetry-gate/` — ✅ 6/6 tests; pluggable scorer + baseline compare + regression detect + telemetry emit; FastAPI `/health` `/ready` `/gate`
+| # | Project (dir) | Task build | Tech | Status | Verified |
+|---|---------------|-----------|------|--------|----------|
+| 1 | `portfolio/capstone-enterprise-mvp/` | Capstone Project | Multi-Agent·RAG·Streaming·Docker·CI | ✅ | 4/4 offline pytest; planner→researcher→writer→critic graph + SSE streaming verified |
+| 2 | `portfolio/ai-gateway/` | The AI Gateway | FastAPI·Streaming·Cost Tracking | ✅ | 5/5 offline pytest; SSE streaming + cost tracker verified |
+| 3 | `portfolio/knowledge-engine/` | The Knowledge Engine | RAG·pgvector·LangChain | ✅ | 6/6 offline pytest; hybrid BM25+dense+RRF + metadata filter + citations verified |
+| 4 | `portfolio/enterprise-search-engine/` | The Enterprise Search Engine | Hybrid·Multi-Tenant·Pinecone | ✅ | 7/7 offline pytest; tenant isolation + hybrid BM25+dense+RRF + filter + citations verified |
+| 5 | `portfolio/persistent-operator/` | The Persistent Operator | LangGraph·Redis·Tool Calling | ✅ | 5/5 offline pytest; restart continuity + session isolation + tool recording verified |
+| 6 | `portfolio/regression-gate/` | The Regression Gate | LangSmith·RAGAS·CI/CD | ✅ | 5/5 offline pytest; metrics + baseline compare + regression verdict verified |
+| 7 | `portfolio/audited-tool-bridge/` | The Audited Tool Bridge | MCP·CrewAI·Docker | ✅ | 6/6 offline pytest; auth reject + rate limit + audit-on-every-path verified |
+| 8 | `portfolio/specialist-model/` | The Specialist Model | LoRA/QLoRA·W&B | ✅ | 6/6 offline pytest; SFT dataset + LoRA config validation + base-vs-tuned verdict verified (training off-laptop by design) |
+| 9 | `portfolio/dual-agent-supervisor/` | The Dual-Agent Supervisor | Multi-Agent·Reliability·Failover | ✅ | 5/5 offline pytest; maker-checker retry + provider-outage failover drill verified |
+| 10 | `portfolio/multimodal-rag-engine/` | The Multimodal RAG Engine | Vision·Voice AI·Live Dashboards | ✅ | 5/5 offline pytest; modality routing + evidence fusion + dashboard metrics + fail-soft verified |
+
+> Old 3 generic dirs (`ai-gateway-service`, `enterprise-search-service`, `regression-telemetry-gate`) removed; their proven cores (token-bucket, BM25+RRF+rerank, eval-compare) are folded into #2/#4/#6.
 
 ---
 
@@ -64,7 +73,7 @@ Spec per project: `README.md`, `pyproject.toml`, `docs/PLANNING.md`, `docs/DESIG
 | A | Weeks 2, 3, 4 | main (sequential) | ✅ | 2026-09-07 | 2026-09-07 | Wk2/3/4 verified: compile clean, offline demos pass, live RAG+agent selftests OK |
 | B | Weeks 5, 6, 7 | main (sequential) | ✅ | 2026-09-07 | 2026-09-07 | Wk5/6/7 verified: compile clean, offline demos pass, live multi-agent selftest OK |
 | C | Weeks 8, 9, 10 | main (sequential) | ✅ | 2026-09-07 | 2026-09-07 | Wk8/9/10 verified: compile clean, offline demos pass, live platform selftest OK |
-| D | Portfolio P1, P2, P3 | main (sequential) | ✅ | 2026-09-07 | 2026-09-07 | P1/P2/P3 verified: compile clean, 6/6 offline pytest each, FastAPI wrappers import-safe |
+| D | Portfolio: all 10 Task.md projects | main (sequential) | ✅ | 2026-09-07 | 2026-09-07 | All 10 built + offline-verified (per-project pytest green); per-project status in §3 |
 | F | Final: compile-all, spot-run, README final, skills, verify, push master | main only | 🔄 | 2026-09-07 | — | skills ✅; full compile sweep **58/58 OK**; fixed Wk7 unclosed-paren (re-ran → converges 99%); push **deferred per user** ("don't waste time on git") |
 
 **Constraints honored:** ≤3–4 concurrent coding subagents (provider ~128K ctx); self-contained briefs; no commit/push by subagents; main verifies all output.
@@ -75,7 +84,7 @@ Spec per project: `README.md`, `pyproject.toml`, `docs/PLANNING.md`, `docs/DESIG
 1. Read this file top-to-bottom. Find the first 🔄/⏳ row in §2 or §4.
 2. Continue that batch. For subagent batches, dispatch ≤3–4 concurrent with self-contained briefs (see MASTER_PLAN §4 per-week spec + §5 conventions).
 3. After each wave: main verifies (py_compile all new files; run no-LLM scripts; ≤1–2 LLM smoke tests), updates §2/§4, commits.
-4. Git: work happens on **master**. Commit after each verified wave. `git push origin master`.
+4. Git: work happens on **feat/sde-ai-engineer-course**. Commit after each verified project. `git push origin feat/sde-ai-engineer-course`.
 5. Never run Ollama; never download >100 MB models; keep full-pipeline LLM runs minimal.
 
 ---

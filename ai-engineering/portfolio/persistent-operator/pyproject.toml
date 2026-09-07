@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "persistent-operator"
+version = "0.1.0"
+description = "The Persistent Operator: stateful tool-calling agent that persists conversation + tool history to Redis and survives restarts"
+requires-python = ">=3.10"
+dependencies = ["fastapi", "uvicorn", "pydantic", "redis"]
+
+[tool.setuptools]
+packages = ["persistent_operator"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

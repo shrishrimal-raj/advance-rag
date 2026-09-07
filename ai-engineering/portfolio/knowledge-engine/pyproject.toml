@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "knowledge-engine"
+version = "0.1.0"
+description = "The Knowledge Engine: production RAG pipeline with hybrid retrieval, metadata filtering, and citation tracking"
+requires-python = ">=3.10"
+dependencies = ["fastapi", "uvicorn", "pydantic", "rank-bm25"]
+
+[tool.setuptools]
+packages = ["knowledge_engine"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

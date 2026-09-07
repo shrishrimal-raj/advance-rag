@@ -1,0 +1,17 @@
+services:
+  specialist:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - LLM_API_KEY=${LLM_API_KEY}
+      - WANDB_API_KEY=${WANDB_API_KEY}
+      - BASE_MODEL=${BASE_MODEL:-meta-llama/Llama-3.1-8B-Instruct}
+      - TRAINING_COMPUTE=${TRAINING_COMPUTE:-cloud-gpu}
+      - LORA_R=${LORA_R:-8}
+      - QUANTIZATION_BIT=${QUANTIZATION_BIT:-4}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request;urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3

@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "audited-tool-bridge"
+version = "0.1.0"
+description = "The Audited Tool Bridge: secure MCP-style tool gateway with authentication, rate limiting, and full audit logging"
+requires-python = ">=3.10"
+dependencies = ["fastapi", "uvicorn", "pydantic"]
+
+[tool.setuptools]
+packages = ["audited_tool_bridge"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
