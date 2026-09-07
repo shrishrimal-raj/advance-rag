@@ -1,0 +1,61 @@
+[project]
+name = "sde-to-ai-engineer-course"
+version = "0.1.0"
+description = "Local SDE -> AI Engineer course - 10-week production-grade AI systems with uv"
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    # --- Core orchestration ---
+    "langchain>=0.3",
+    "langchain-core>=0.3",
+    "langchain-community>=0.3,<0.4",
+    "langchain-text-splitters>=0.3",
+    "langchain-openai>=0.2",
+    "langgraph>=0.2",
+    "langchain-classic>=1.0.8",
+    # --- Vector stores ---
+    "chromadb>=0.5",
+    "langchain-chroma>=0.2",
+    "langchain-huggingface>=0.1",
+    # --- Embeddings (local default) ---
+    "sentence-transformers>=3.0",
+    # --- Sparse / hybrid search ---
+    "rank-bm25>=0.2",
+    "fastembed>=0.3",
+    # --- Document loaders ---
+    "pypdf>=4.0",
+    "beautifulsoup4>=4.12",
+    "requests>=2.31",
+    "markdown>=3.5",
+    # --- Web / API (Week 1 gateway) ---
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+    "httpx>=0.27",
+    "sse-starlette>=2.0",
+    # --- Evaluation ---
+    "ragas>=0.2",
+    "datasets>=2.19",
+    # --- Utilities ---
+    "python-dotenv>=1.0",
+    "pydantic>=2.0",
+    "jq>=1.0",
+    "rich>=13.0",
+    "tqdm>=4.66",
+    "matplotlib>=3.8",
+    "numpy>=1.26",
+    # --- Testing & UI ---
+    "pytest>=8.0",
+    "streamlit>=1.36",
+]
+
+# Heavy / optional tooling added as its week is built (kept out of default sync to stay light on 8GB):
+#   Week 4: redis
+#   Week 5: langfuse, opentelemetry-api, opentelemetry-sdk
+#   Week 6: mcp, crewai
+#   Week 7: peft, bitsandbytes, torch  (fine-tuning - cloud/GPU only)
+#   Week 9: openai-whisper             (voice - heavy)
+[dependency-groups]
+dev = [
+    "jupyter>=1.0",
+    "ipykernel>=6.29",
+]
