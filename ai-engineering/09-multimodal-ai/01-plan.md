@@ -1,38 +1,46 @@
-# 🎯 Week 09 — Multimodal AI & Capstone Kickoff
+# 🎯 Week 09 — Multimodal AI
 
-> Status: ⏳ PENDING (Batch — see `../CHECKPOINT.md`). This is the planning doc; learning + implementation + code land when this week's batch runs.
+> Status: ✅ BUILT (see `../CHECKPOINT.md`).
 
 ## Objective
-A multimodal RAG system with vision and voice data channels that extracts structured data and tracks cost-per-ticket on a live dashboard.
+Build systems that process multiple data types.
 
 ## What You'll Learn
-- Architecture of a multimodal AI model
-- Low-latency Multimodal AI systems
-- Multimodal RAG Systems
-- Scoping and discussing capstone project ideas
+- Vision Transformers & CLIP
+- Audio Processing & Speech-to-Text
+- Multimodal Fusion Strategies
 
 ## Tools / Stack
-- Vision
-- Voice AI
-- Video Models
+- **HuggingFace Transformers** (installed) · **OpenAI Whisper** (documented) · **NumPy** (installed) · **shared.config.get_llm** (cloud)
+
+> ⚠️ **Heavy workload.** Real vision/audio models are large downloads - forbidden here. This week is **code + docs**: `main.py` is a complete, guarded document-intelligence pipeline (dry-run default; the *understand/structure* stage runs a single cloud LLM call on simulated OCR output). The multimodal *mechanics* are proven offline with NumPy: a CLIP-style shared-space matcher (`approach_2`) and a speech front-end (`approach_3`).
 
 ## Weekly Build
-**The Multimodal RAG Engine** — A multimodal RAG system with vision and voice data channels that extracts structured data and tracks cost-per-ticket on a live dashboard.
+**The Document Intelligence Pipeline** — Extract, understand, and process documents with images.
 
-**Outcome:** Build multimodal RAG systems that ingest image and voice streams while establishing the architecture for your production Capstone.
+**Outcome:** Master the architecture behind modern multimodal products.
+
+## Approach details
+| File | Approach | Runs |
+|------|----------|------|
+| `code/main.py` | Document-intelligence pipeline: extract -> clean -> understand/structure | dry-run **offline**; `--selftest` = 1 LLM call on simulated OCR |
+| `code/approach_2_clip_style_fusion_from_scratch.py` | CLIP-style shared embedding space + cosine retrieval (NumPy) | **fully offline** |
+| `code/approach_3_audio_speech_from_scratch.py` | Speech front-end: energy envelope + VAD segmentation (NumPy) | **fully offline** |
+| `code/benchmark_modality_fusion.py` | Unimodal vs early vs late fusion decision matrix | **fully offline** |
 
 ## Deliverables (this week)
-- [ ] `02-learning.md` — theory + noob→expert mermaid diagrams (≥5)
-- [ ] `03-implementation.md` — step-by-step build guide
-- [ ] `code/main.py` — framework-based end-to-end build
-- [ ] `code/approach_2_*.py` — alternative framework usage
-- [ ] `code/approach_3_*.py` — from-scratch implementation
-- [ ] `code/*_benchmark.py` — head-to-head comparison (where meaningful)
-- [ ] All scripts: Windows UTF-8 guard + graceful degradation + `py_compile` clean
+- [x] `02-learning.md` — theory + noob→expert mermaid diagrams (≥5)
+- [x] `03-implementation.md` — step-by-step build guide
+- [x] `code/main.py` · `approach_2_clip_style_fusion_from_scratch.py` · `approach_3_audio_speech_from_scratch.py` · `benchmark_modality_fusion.py`
+- [x] All scripts: UTF-8 guard + graceful degradation + `py_compile` clean
+
+## Verification
+- `py_compile` all four.
+- Run `approach_2` + `approach_3` + `benchmark` (offline, self-check asserts).
+- Run `main.py --selftest` (1 cloud LLM call on simulated OCR output).
 
 ## Prerequisites
-- Previous week(s) complete.
-- `uv sync` done in `ai-engineering/`; `YOLO_AUTO_API_KEY` set (cloud LLM). No Ollama (8 GB laptop).
+- Weeks 1–8 complete. `numpy` installed. No Ollama; no >100 MB downloads.
 
 ## Time Estimate
-~4–6 hours hands-on.
+~5–7 hours hands-on.

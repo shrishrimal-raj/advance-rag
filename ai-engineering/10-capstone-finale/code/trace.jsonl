@@ -1,0 +1,1 @@
+{"ts": 1788797847.7336514, "query": "How do hybrid search and reranking improve RAG quality?", "retrieved": ["r3", "r1", "r2"], "eval": {"faithfulness": 1.0, "cited": ["r1", "r2", "r3"], "valid": ["r1", "r2", "r3"]}, "latency_s": 61.05}

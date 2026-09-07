@@ -1,0 +1,14 @@
+services:
+  gate:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - GATE_PASS_THRESHOLD=${GATE_PASS_THRESHOLD:-0.6}
+      - GATE_REGRESSION_THRESHOLD=${GATE_REGRESSION_THRESHOLD:-0.05}
+      - GATE_MIN_PASS_RATE=${GATE_MIN_PASS_RATE:-0.8}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request;urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3

@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ai-gateway-service"
+version = "0.1.0"
+description = "AI Gateway: provider routing with retry, fallback, rate limiting, structured logging"
+requires-python = ">=3.10"
+dependencies = ["fastapi", "uvicorn", "pydantic"]
+
+[tool.setuptools]
+packages = ["ai_gateway"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

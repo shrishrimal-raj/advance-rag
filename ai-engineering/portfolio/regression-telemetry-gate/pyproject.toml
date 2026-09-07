@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "regression-telemetry-gate"
+version = "0.1.0"
+description = "CI quality gate: run evals, compare against baseline, detect regression, emit telemetry"
+requires-python = ">=3.10"
+dependencies = ["fastapi", "uvicorn", "pydantic"]
+
+[tool.setuptools]
+packages = ["regression_gate"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

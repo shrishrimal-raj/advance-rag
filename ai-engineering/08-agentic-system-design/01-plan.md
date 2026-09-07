@@ -1,38 +1,45 @@
-# 🎯 Week 08 — Agentic System Design & Reliability Engineering
+# 🎯 Week 08 — Agentic System Design
 
-> Status: ⏳ PENDING (Batch — see `../CHECKPOINT.md`). This is the planning doc; learning + implementation + code land when this week's batch runs.
+> Status: ✅ BUILT (see `../CHECKPOINT.md`).
 
 ## Objective
-A secure, scalable dual-agent supervisor system that survives a live provider-outage recovery drill.
+Design robust, production-grade agentic systems.
 
 ## What You'll Learn
-- Building Agentic Systems for Scale
-- Design Trade-offs
-- Multi-Agent Maker-Checker Topologies
-- AI Security (Prompt Injection, PII Redaction)
-- Fallbacks, Semantic Caching & Rate Limiting
+- Agentic System Design Patterns
+- Tool Use & Function Calling
+- Planning & Memory Architectures
+- Error Handling & Recovery Strategies
 
 ## Tools / Stack
-- Multi-Agent
-- System Design
+- **LangGraph** (installed) · **LangChain** (installed) · **shared.config.get_llm** (cloud)
 
 ## Weekly Build
-**The Dual-Agent Supervisor** — A secure, scalable dual-agent supervisor system that survives a live provider-outage recovery drill.
+**The Autonomous Research Agent** — A multi-step agent that plans, executes, and self-corrects.
 
-**Outcome:** Learn to attack your own system, patch holes, and implement graceful failure mechanisms.
+**Outcome:** Master the architecture behind reliable, production-grade agents.
+
+## Approach details
+| File | Approach | Runs |
+|------|----------|------|
+| `code/main.py` | LangGraph autonomous agent: decide -> act -> observe loop with self-correction | cloud LLM (`--selftest` ≈ 2–3 calls, capped) |
+| `code/approach_2_raw_function_calling.py` | Hand-rolled function-calling round-trip (schema -> call -> dispatch -> result) | **fully offline** |
+| `code/approach_3_planning_memory_from_scratch.py` | Planner + memory store from scratch | **fully offline** |
+| `code/benchmark_agent_design_patterns.py` | ReAct vs plan-and-execute vs reflection decision matrix | **fully offline** |
 
 ## Deliverables (this week)
-- [ ] `02-learning.md` — theory + noob→expert mermaid diagrams (≥5)
-- [ ] `03-implementation.md` — step-by-step build guide
-- [ ] `code/main.py` — framework-based end-to-end build
-- [ ] `code/approach_2_*.py` — alternative framework usage
-- [ ] `code/approach_3_*.py` — from-scratch implementation
-- [ ] `code/*_benchmark.py` — head-to-head comparison (where meaningful)
-- [ ] All scripts: Windows UTF-8 guard + graceful degradation + `py_compile` clean
+- [x] `02-learning.md` — theory + noob→expert mermaid diagrams (≥5)
+- [x] `03-implementation.md` — step-by-step build guide
+- [x] `code/main.py` · `approach_2_raw_function_calling.py` · `approach_3_planning_memory_from_scratch.py` · `benchmark_agent_design_patterns.py`
+- [x] All scripts: UTF-8 guard + graceful degradation + `py_compile` clean
+
+## Verification
+- `py_compile` all four.
+- Run `approach_2` + `approach_3` + `benchmark` (offline, self-check asserts).
+- Run `main.py --selftest` (bounded cloud LLM loop).
 
 ## Prerequisites
-- Previous week(s) complete.
-- `uv sync` done in `ai-engineering/`; `YOLO_AUTO_API_KEY` set (cloud LLM). No Ollama (8 GB laptop).
+- Weeks 1–7 complete. `langgraph` installed. No Ollama; no new installs.
 
 ## Time Estimate
-~4–6 hours hands-on.
+~5–7 hours hands-on.
